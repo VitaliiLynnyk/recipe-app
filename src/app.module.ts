@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { EasyconfigModule } from 'nestjs-easyconfig';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { typeOrmConfig } from './config/typeorm.config';
 import { RecipesModule } from './recipes/recipes.module';
 
 @Module({
   imports: [
-    EasyconfigModule.register({ path: './src/config/.env' }),
+    TypeOrmModule.forRoot(typeOrmConfig),
     RecipesModule
   ],
   controllers: [],
