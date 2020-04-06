@@ -6,6 +6,9 @@ export class Recipe extends BaseEntity {
   id: number;
 
   @Column()
+  name: string;
+
+  @Column()
   description: string;
 
   @Column()

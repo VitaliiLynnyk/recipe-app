@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { CreateRecipeDto } from './dto/create.recipe.dto';
+
 import { Recipe } from './recipe.entity';
 import { RecipeRepository } from './recipe.repository';
 
@@ -19,5 +21,9 @@ export class RecipeService {
     }
 
     return found;
+  }
+
+  createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
+    return this.recipeRepository.createRecipe(createRecipeDto);
   }
 }

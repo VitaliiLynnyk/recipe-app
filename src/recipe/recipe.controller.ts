@@ -1,4 +1,6 @@
-import { Controller, Get, ParseIntPipe, Param } from '@nestjs/common';
+import { Controller, Get, ParseIntPipe, Param, Post, UsePipes, Body, ValidationPipe } from '@nestjs/common';
+
+import { CreateRecipeDto } from './dto/create.recipe.dto';
 
 import { Recipe } from './recipe.entity';
 import { RecipeService } from './recipe.service';
@@ -10,5 +12,11 @@ export class RecipeController {
   @Get('/:id')
   getRecipeById(@Param('id', ParseIntPipe) id: number): Promise<Recipe> {
     return this.recipeService.getRecipeById(id);
+  }
+
+  @Post()
+  @UsePipes(ValidationPipe)
+  createRecipe(@Body() createRecipeDto: CreateRecipeDto): Promise<Recipe> {
+    return this.recipeService.createRecipe(createRecipeDto);
   }
 }
