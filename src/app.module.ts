@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { typeOrmConfig } from './config/typeorm.config';
-import { RecipesModule } from './recipes/recipes.module';
+import { RecipeModule } from './recipe/recipe.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    RecipesModule
+    RecipeModule
   ],
   controllers: [],
   providers: [],
