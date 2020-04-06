@@ -23,7 +23,15 @@ export class RecipeService {
     return found;
   }
 
-  createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
+  async createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
     return this.recipeRepository.createRecipe(createRecipeDto);
+  }
+
+  async deleteRecipe(id: number): Promise<void> {
+    const result = await this.recipeRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Recipe with ${id} not found !`);
+    }
   }
 }

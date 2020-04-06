@@ -1,4 +1,4 @@
-import { Controller, Get, ParseIntPipe, Param, Post, UsePipes, Body, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, ParseIntPipe, Param, Post, UsePipes, Body, ValidationPipe, Delete } from '@nestjs/common';
 
 import { CreateRecipeDto } from './dto/create.recipe.dto';
 
@@ -18,5 +18,10 @@ export class RecipeController {
   @UsePipes(ValidationPipe)
   createRecipe(@Body() createRecipeDto: CreateRecipeDto): Promise<Recipe> {
     return this.recipeService.createRecipe(createRecipeDto);
+  }
+
+  @Delete('/:id')
+  deleteRecipe(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.recipeService.deleteRecipe(id);
   }
 }
