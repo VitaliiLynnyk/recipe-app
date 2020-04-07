@@ -1,6 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne } from 'typeorm';
 
 import { Category } from './enums/category.enum';
+
+import { Recipe } from '../recipe/recipe.entity';
 
 @Entity()
 export class Ingredient extends BaseEntity {
@@ -14,5 +16,8 @@ export class Ingredient extends BaseEntity {
   imgUrl: string;
 
   @Column()
-  category: Category
+  category: Category;
+
+  @ManyToOne(type => Recipe, recipe => recipe.ingredients)
+  recipe: Recipe;
 }
