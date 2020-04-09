@@ -13,7 +13,7 @@ export class RecipeRepository extends Repository<Recipe> {
 
   async getRecipes(getFilterRecipeDto: GetFilterRecipeDto): Promise<Recipe[]> {
     const { search } = getFilterRecipeDto;
-    const query = this.createQueryBuilder('recipe');
+    const query = this.createQueryBuilder('recipe').leftJoinAndSelect('recipe.recipeIngredients', 'recipeIngredient');
 
     if (search) {
       query.andWhere('(recipe.name LIKE :search OR recipe.description LIKE :search)', { search: `%${search}%` });
