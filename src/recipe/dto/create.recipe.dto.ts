@@ -1,4 +1,9 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsArray, ValidateNested, IsString } from 'class-validator';
+
+export class CreateRecipeIngredients {
+  quantity: string;
+  recipe_id: number;
+}
 
 export class CreateRecipeDto {
   @IsNotEmpty()
@@ -10,7 +15,5 @@ export class CreateRecipeDto {
   @IsNotEmpty()
   imgUrl: string;
 
-  @IsNumber({}, { each: true })
-  @IsNotEmpty()
-  ingredientIds: number[];
+  recipeIngrArr: CreateRecipeIngredients[];
 }
