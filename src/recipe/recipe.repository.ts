@@ -40,7 +40,7 @@ export class RecipeRepository extends Repository<Recipe> {
 
     console.log(recipeIngrArr);
 
-    const recipeIngredientsID = recipeIngrArr.map(item => item.recipe_id);
+    const recipeIngredientsID = recipeIngrArr.map(item => item.recipeId);
     const ingredients = await Ingredient.findByIds(recipeIngredientsID);
 
 
@@ -51,7 +51,7 @@ export class RecipeRepository extends Repository<Recipe> {
     // recipe.recipeIngredients = [ recipeIngr ];
     ingredients.forEach(async ingredient => {
       const recipeIngr = new RecipeIngredient();
-      recipeIngr.quantity = recipeIngrArr.find(item => item.recipe_id === ingredient.id).quantity;
+      recipeIngr.quantity = recipeIngrArr.find(item => item.recipeId === ingredient.id).quantity;
       recipeIngr.ingredient = ingredient;
       //await recipeIngr.ingredient.save();
       //recipeIngr.recipe = recipe;
