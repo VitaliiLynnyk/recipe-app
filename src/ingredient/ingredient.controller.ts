@@ -16,6 +16,11 @@ export class IngredientController {
     return this.ingredientService.getIngredients(getFilterIngredientsDto);
   }
 
+  @Get('/:id')
+  getIngredientById(@Param('id', ParseIntPipe) id: number): Promise<Ingredient> {
+    return this.ingredientService.getIngredientById(id);
+  }
+
   @Post()
   @UsePipes(ValidationPipe)
   createIngredient(@Body() createIngredientDto: CreateIngredientDto): Promise<Ingredient> {
