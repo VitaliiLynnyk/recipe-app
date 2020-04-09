@@ -1,3 +1,4 @@
+import { GetFilterIngredientsDto } from './dto/get.filter.ingredient.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -11,6 +12,10 @@ export class IngredientService {
     @InjectRepository(IngredientRepository)
     private ingredientRepository: IngredientRepository
   ) { }
+
+  async getIngredients(getFilterIngredientsDto: GetFilterIngredientsDto): Promise<Ingredient[]> {
+    return this.ingredientRepository.getIngredients(getFilterIngredientsDto);
+  }
 
   async createIngredient(createIngredientDto: CreateIngredientDto): Promise<Ingredient> {
     return this.ingredientRepository.createIngredient(createIngredientDto);
