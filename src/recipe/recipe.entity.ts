@@ -1,5 +1,6 @@
-import { RecipeIngredient } from './../recipe-ingredient/recipe-ingredient.entity';
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
+
+import { RecipeIngredient } from '../recipe-ingredient/recipe-ingredient.entity';
 
 @Entity()
 export class Recipe extends BaseEntity {

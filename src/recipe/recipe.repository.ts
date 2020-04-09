@@ -36,20 +36,10 @@ export class RecipeRepository extends Repository<Recipe> {
     const recipeIngredientsID = recipeIngrArr.map(item => item.recipeId);
     const ingredients = await Ingredient.findByIds(recipeIngredientsID);
 
-
-    //const recipeIngr = new RecipeIngredient();
-    // recipeIngr.ingredient = ingredients[ 0 ];
-    // recipeIngr.quantity = "lol";
-
-    // recipe.recipeIngredients = [ recipeIngr ];
-    ingredients.forEach(async ingredient => {
+    ingredients.forEach(ingredient => {
       const recipeIngr = new RecipeIngredient();
       recipeIngr.quantity = recipeIngrArr.find(item => item.recipeId === ingredient.id).quantity;
       recipeIngr.ingredient = ingredient;
-      //await recipeIngr.ingredient.save();
-      //recipeIngr.recipe = recipe;
-      // await recipeIngr.ingredient.save();
-      //      recipeIngr.save();
       recipe.recipeIngredients = recipe.recipeIngredients ? [ ...recipe.recipeIngredients, recipeIngr ] : [ recipeIngr ];
     })
 
