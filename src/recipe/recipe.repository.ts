@@ -12,22 +12,15 @@ import { RecipeIngredient } from 'recipe-ingredient/recipe-ingredient.entity';
 export class RecipeRepository extends Repository<Recipe> {
 
   async getRecipes(getFilterRecipeDto: GetFilterRecipeDto): Promise<Recipe[]> {
-    // const { search } = getFilterRecipeDto;
-    // const query = this.createQueryBuilder('recipe');
+    const { search } = getFilterRecipeDto;
+    const query = this.createQueryBuilder('recipe');
 
-    // if (search) {
-    //   query.andWhere('(recipe.name LIKE :search OR recipe.description LIKE :search)', { search: `%${search}%` });
-    // }
+    if (search) {
+      query.andWhere('(recipe.name LIKE :search OR recipe.description LIKE :search)', { search: `%${search}%` });
+    }
 
-    // const recipes = await query.getMany();
-
-    // return recipes;
-
-    const res = await this
-      .createQueryBuilder("recipe")
-      .leftJoinAndSelect("recipe.recipeIngredients", "recipeIngredient")
-      .getMany();
-    return res;
+    const recipes = await query.getMany();
+    return recipes;
   }
 
   async createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
