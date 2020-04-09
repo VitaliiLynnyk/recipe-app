@@ -11,7 +11,8 @@ export class RecipeIngredient extends BaseEntity {
   @Column()
   quantity: string;
 
-  @Column(type => Ingredient)
+  @OneToOne(() => Ingredient, { cascade: true })
+  @JoinColumn()
   ingredient: Ingredient;
 
   @ManyToOne(type => Recipe, recipe => recipe.recipeIngredients)
