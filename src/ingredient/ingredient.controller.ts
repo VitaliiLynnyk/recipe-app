@@ -1,9 +1,11 @@
-import { GetFilterIngredientsDto } from './dto/get.filter.ingredient.dto';
-import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Query } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Query, Put, ParseIntPipe, Param } from '@nestjs/common';
 
 import { Ingredient } from './ingredient.entity';
 import { IngredientService } from './ingredient.service';
 import { CreateIngredientDto } from './dto/create.ingredient.dto';
+
+import { UpdateIngredientDto } from './dto/update.ingredient.dto';
+import { GetFilterIngredientsDto } from './dto/get.filter.ingredient.dto';
 
 @Controller('ingredient')
 export class IngredientController {
@@ -18,5 +20,14 @@ export class IngredientController {
   @UsePipes(ValidationPipe)
   createIngredient(@Body() createIngredientDto: CreateIngredientDto): Promise<Ingredient> {
     return this.ingredientService.createIngredient(createIngredientDto);
+  }
+
+  @Put('/:id')
+  @UsePipes(ValidationPipe)
+  updateIngredient(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateIngredientDto: UpdateIngredientDto
+  ): Promise<Ingredient> {
+    return this.ingredientService.updateIngredientById(id, updateIngredientDto);
   }
 }
