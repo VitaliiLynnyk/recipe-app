@@ -42,4 +42,12 @@ export class IngredientService {
     await ingredient.save();
     return ingredient;
   }
+
+  async deleteIngredientById(id: number): Promise<void> {
+    const result = await this.ingredientRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Ingredient with ID ${id} not found !`);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Query, Put, ParseIntPipe, Param } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Query, Put, ParseIntPipe, Param, Delete } from '@nestjs/common';
 
 import { Ingredient } from './ingredient.entity';
 import { IngredientService } from './ingredient.service';
@@ -29,5 +29,10 @@ export class IngredientController {
     @Body() updateIngredientDto: UpdateIngredientDto
   ): Promise<Ingredient> {
     return this.ingredientService.updateIngredientById(id, updateIngredientDto);
+  }
+
+  @Delete('/:id')
+  deleteIngredientById(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.ingredientService.deleteIngredientById(id);
   }
 }
