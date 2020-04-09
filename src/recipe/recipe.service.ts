@@ -1,3 +1,4 @@
+import { UpdateRecipeDto } from './dto/update.recipe.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -30,6 +31,14 @@ export class RecipeService {
 
   async createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
     return this.recipeRepository.createRecipe(createRecipeDto);
+  }
+
+  async updateRecipe(id: number, updateRecipeDto: UpdateRecipeDto): Promise<Recipe> {
+    const { name, description, imgUrl } = updateRecipeDto;
+    const recipe = await this.getRecipeById(id);
+    recipe.name = name ? name : recipe.name;
+    recipe.description = description ? description : recipe.description;
+    recipe.imgUrl = imgUrl ? imgUrl : recipe.imgUrl;
   }
 
   async deleteRecipe(id: number): Promise<void> {
