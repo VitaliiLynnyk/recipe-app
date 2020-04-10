@@ -39,6 +39,9 @@ export class RecipeService {
     recipe.name = name ? name : recipe.name;
     recipe.description = description ? description : recipe.description;
     recipe.imgUrl = imgUrl ? imgUrl : recipe.imgUrl;
+
+    await recipe.save();
+    return recipe;
   }
 
   async deleteRecipe(id: number): Promise<void> {
