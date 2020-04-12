@@ -1,6 +1,6 @@
-import { Recipe } from 'recipe/recipe.entity';
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne } from 'typeorm';
 
+import { Recipe } from 'recipe/recipe.entity';
 import { Ingredient } from 'ingredient/ingredient.entity';
 
 @Entity()
@@ -11,8 +11,7 @@ export class RecipeIngredient extends BaseEntity {
   @Column()
   quantity: string;
 
-  @OneToOne(() => Ingredient, { cascade: true })
-  @JoinColumn()
+  @ManyToOne(() => Ingredient, { cascade: true })
   ingredient: Ingredient;
 
   @ManyToOne(type => Recipe, recipe => recipe.recipeIngredients)

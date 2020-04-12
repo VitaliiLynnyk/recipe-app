@@ -1,12 +1,14 @@
 import { Repository, EntityRepository } from 'typeorm';
 
+import { Recipe } from './recipe.entity';
 import { CreateRecipeDto } from './dto/create.recipe.dto';
 import { GetFilterRecipeDto } from './dto/get.filter.recipe.dto';
 
-import { Recipe } from './recipe.entity';
+import { RecipeIngredient } from 'recipe-ingredient/recipe-ingredient.entity';
+import { RecipeNutrition } from 'recipe-nutrition/recipe-nutrition.entity';
 
 import { Ingredient } from 'ingredient/ingredient.entity';
-import { RecipeIngredient } from 'recipe-ingredient/recipe-ingredient.entity';
+import { Nutrition } from 'nutrition/nutrition.entity';
 
 @EntityRepository(Recipe)
 export class RecipeRepository extends Repository<Recipe> {
@@ -24,7 +26,14 @@ export class RecipeRepository extends Repository<Recipe> {
   }
 
   async createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
-    const { name, description, imgUrl, recipeIngrArr, instruction } = createRecipeDto;
+    const {
+      name,
+      imgUrl,
+      description,
+      instruction,
+      recipeNutritionsArr,
+      recipeIngredientsArr
+    } = createRecipeDto;
 
     const recipe = new Recipe();
     recipe.name = name;
@@ -32,14 +41,24 @@ export class RecipeRepository extends Repository<Recipe> {
     recipe.imgUrl = imgUrl;
     recipe.instruction = recipe.instruction.length ? [ ...recipe.instruction, ...instruction ] : [ ...instruction ];
 
-    const recipeIngredientsID = recipeIngrArr.map(item => item.recipeId);
+    const recipeIngredientsID = recipeIngredientsArr.map(item => item.id);
     const ingredients = await Ingredient.findByIds(recipeIngredientsID);
 
     ingredients.forEach(ingredient => {
       const recipeIngr = new RecipeIngredient();
-      recipeIngr.quantity = recipeIngrArr.find(item => item.recipeId === ingredient.id).quantity;
+      recipeIngr.quantity = recipeIngredientsArr.find(item => item.id === ingredient.id).quantity;
       recipeIngr.ingredient = ingredient;
-      recipe.recipeIngredients = recipe.recipeIngredients.length ? [ ...recipe.recipeIngredients, recipeIngr ] : [ recipeIngr ];
+      recipe.recipeIngredients = recipe.recipeIngredients ? [ ...recipe.recipeIngredients, recipeIngr ] : [ recipeIngr ];
+    })
+
+    const recipeNutritionsID = recipeNutritionsArr.map(item => item.id);
+    const nutritions = await Nutrition.findByIds(recipeNutritionsID);
+
+    nutritions.forEach(nutrition => {
+      const recipeNutr = new RecipeNutrition();
+      recipeNutr.quantity = recipeNutritionsArr.find(item => item.id === nutrition.id).quantity;
+      recipeNutr.nutrition = nutrition;
+      recipe.recipeNutritions = recipe.recipeNutritions ? [ ...recipe.recipeNutritions, recipeNutr ] : [ recipeNutr ];
     })
 
     await recipe.save();

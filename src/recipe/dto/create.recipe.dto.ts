@@ -1,14 +1,14 @@
-import { IsNotEmpty, IsNumber, ValidateNested, IsString, IsArray } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, ValidateNested, IsString, IsArray } from 'class-validator';
 
-export class CreateRecipeIngredients {
+export class CreateRecipeNestedComponentDto {
   @IsNotEmpty()
   @IsString()
   quantity: string;
 
   @IsNotEmpty()
   @IsNumber()
-  recipeId: number;
+  id: number;
 }
 
 export class CreateRecipeDto {
@@ -31,6 +31,11 @@ export class CreateRecipeDto {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => CreateRecipeIngredients)
-  recipeIngrArr: CreateRecipeIngredients[];
+  @Type(() => CreateRecipeNestedComponentDto)
+  recipeIngredientsArr: CreateRecipeNestedComponentDto[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateRecipeNestedComponentDto)
+  recipeNutritionsArr: CreateRecipeNestedComponentDto[];
 }

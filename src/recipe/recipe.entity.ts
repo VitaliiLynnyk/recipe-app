@@ -1,6 +1,6 @@
-import { RecipeNutrition } from './../recipe-nutrition/recipe-nutrition.entity';
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
 
+import { RecipeNutrition } from '../recipe-nutrition/recipe-nutrition.entity';
 import { RecipeIngredient } from '../recipe-ingredient/recipe-ingredient.entity';
 
 @Entity()
