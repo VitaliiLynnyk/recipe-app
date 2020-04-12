@@ -1,3 +1,4 @@
+import { GetFilterNutritionDto } from './dto/get.filter.nutrition.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
@@ -24,5 +25,9 @@ export class NutritionService {
     }
 
     return found;
+  }
+
+  async getNutritions(getFilterNutritionDto: GetFilterNutritionDto): Promise<Nutrition[]> {
+    return this.nutritionRepository.getNutritions(getFilterNutritionDto);
   }
 }

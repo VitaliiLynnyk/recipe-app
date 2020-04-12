@@ -1,3 +1,4 @@
+import { GetFilterNutritionDto } from './dto/get.filter.nutrition.dto';
 import { EntityRepository, Repository } from 'typeorm';
 
 import { Nutrition } from './nutrition.entity';
@@ -15,5 +16,18 @@ export class NutritionRepository extends Repository<Nutrition> {
 
     await nutrition.save();
     return nutrition;
+  }
+
+  async getNutritions(getFilterNutritionDto: GetFilterNutritionDto): Promise<Nutrition[]> {
+    const { search } = getFilterNutritionDto;
+
+    const query = this.createQueryBuilder('nutrition');
+
+    if (search) {
+      query.andWhere('(nutrition.name LIKE :search OR nutrition.description LIKE :search)', { search: `%${search}%` });
+    }
+
+    const nutritions = await query.getMany();
+    return nutritions;
   }
 }
