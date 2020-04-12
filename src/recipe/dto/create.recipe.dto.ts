@@ -13,13 +13,21 @@ export class CreateRecipeIngredients {
 
 export class CreateRecipeDto {
   @IsNotEmpty()
+  @IsString()
   name: string;
 
   @IsNotEmpty()
+  @IsString()
   description: string;
 
   @IsNotEmpty()
+  @IsString()
   imgUrl: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsString({ each: true })
+  instruction: string[];
 
   @IsArray()
   @ValidateNested({ each: true })

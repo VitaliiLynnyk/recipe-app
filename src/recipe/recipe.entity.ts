@@ -16,6 +16,9 @@ export class Recipe extends BaseEntity {
   @Column()
   imgUrl: string;
 
+  @Column({ type: "text", array: true, nullable: true })
+  instruction: string[] = [];
+
   @OneToMany(type => RecipeIngredient, recipeIngredient => recipeIngredient.recipe, { cascade: true })
   recipeIngredients: RecipeIngredient[];
 }

@@ -24,14 +24,13 @@ export class RecipeRepository extends Repository<Recipe> {
   }
 
   async createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
-    const { name, description, imgUrl, recipeIngrArr } = createRecipeDto;
+    const { name, description, imgUrl, recipeIngrArr, instruction } = createRecipeDto;
 
     const recipe = new Recipe();
     recipe.name = name;
     recipe.description = description;
     recipe.imgUrl = imgUrl;
-
-    console.log(recipeIngrArr);
+    recipe.instruction = recipe.instruction.length ? [ ...recipe.instruction, ...instruction ] : [ ...instruction ];
 
     const recipeIngredientsID = recipeIngrArr.map(item => item.recipeId);
     const ingredients = await Ingredient.findByIds(recipeIngredientsID);
@@ -40,7 +39,7 @@ export class RecipeRepository extends Repository<Recipe> {
       const recipeIngr = new RecipeIngredient();
       recipeIngr.quantity = recipeIngrArr.find(item => item.recipeId === ingredient.id).quantity;
       recipeIngr.ingredient = ingredient;
-      recipe.recipeIngredients = recipe.recipeIngredients ? [ ...recipe.recipeIngredients, recipeIngr ] : [ recipeIngr ];
+      recipe.recipeIngredients = recipe.recipeIngredients.length ? [ ...recipe.recipeIngredients, recipeIngr ] : [ recipeIngr ];
     })
 
     await recipe.save();
