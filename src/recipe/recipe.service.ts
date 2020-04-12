@@ -34,11 +34,12 @@ export class RecipeService {
   }
 
   async updateRecipe(id: number, updateRecipeDto: UpdateRecipeDto): Promise<Recipe> {
-    const { name, description, imgUrl } = updateRecipeDto;
+    const { name, description, imgUrl, instruction } = updateRecipeDto;
     const recipe = await this.getRecipeById(id);
     recipe.name = name ? name : recipe.name;
     recipe.description = description ? description : recipe.description;
     recipe.imgUrl = imgUrl ? imgUrl : recipe.imgUrl;
+    recipe.instruction = instruction ? recipe.instruction ? [ ...recipe.instruction, ...instruction ] : [ ...instruction ] : [ ...recipe.instruction ];
 
     await recipe.save();
     return recipe;
