@@ -1,3 +1,4 @@
+import { RecipeNutrition } from './../recipe-nutrition/recipe-nutrition.entity';
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
 
 import { RecipeIngredient } from '../recipe-ingredient/recipe-ingredient.entity';
@@ -21,4 +22,7 @@ export class Recipe extends BaseEntity {
 
   @OneToMany(type => RecipeIngredient, recipeIngredient => recipeIngredient.recipe, { cascade: true })
   recipeIngredients: RecipeIngredient[];
+
+  @OneToMany(type => RecipeNutrition, recipeNutrition => recipeNutrition.recipe, { cascade: true })
+  recipeNutritions: RecipeNutrition[];
 }
