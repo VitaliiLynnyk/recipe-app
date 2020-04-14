@@ -1,3 +1,5 @@
+import { ConflictException, InternalServerErrorException } from '@nestjs/common';
+
 import { Repository, EntityRepository } from 'typeorm';
 
 import { User } from './user.entity';
@@ -13,6 +15,14 @@ export class UserRepository extends Repository<User> {
     user.email = email;
     user.password = password;
 
-    await user.save();
+    try {
+      await user.save();
+    } catch (error) {
+      if (error.code === '23505') {
+        throw new ConflictException('Email is already exist');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 }
