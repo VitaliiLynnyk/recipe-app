@@ -1,4 +1,5 @@
-import { Controller, Get, ParseIntPipe, Param, Post, UsePipes, Body, ValidationPipe, Delete, Query, Put } from '@nestjs/common';
+import { Controller, Get, ParseIntPipe, Param, Post, UsePipes, Body, ValidationPipe, Delete, Query, Put, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { CreateRecipeDto } from './dto/create.recipe.dto';
 import { GetFilterRecipeDto } from './dto/get.filter.recipe.dto';
@@ -8,6 +9,7 @@ import { RecipeService } from './recipe.service';
 import { UpdateRecipeDto } from './dto/update.recipe.dto';
 
 @Controller('recipe')
+@UseGuards(AuthGuard())
 export class RecipeController {
   constructor(private recipeService: RecipeService) { }
 
