@@ -15,7 +15,11 @@ export class RecipeRepository extends Repository<Recipe> {
 
   async getRecipes(getFilterRecipeDto: GetFilterRecipeDto): Promise<Recipe[]> {
     const { search } = getFilterRecipeDto;
-    const query = this.createQueryBuilder('recipe').leftJoinAndSelect('recipe.recipeIngredients', 'recipeIngredient').leftJoinAndSelect('recipeIngredient.ingredient', 'ingredient');
+    const query = this.createQueryBuilder('recipe')
+      .leftJoinAndSelect('recipe.recipeIngredients', 'recipeIngredient')
+      .leftJoinAndSelect('recipe.recipeNutritions', 'recipeNutrition')
+      .leftJoinAndSelect('recipeIngredient.ingredient', 'ingredient')
+      .leftJoinAndSelect('recipeNutrition.nutrition', 'nutrition');
 
     if (search) {
       query.andWhere('(recipe.name LIKE :search OR recipe.description LIKE :search)', { search: `%${search}%` });
