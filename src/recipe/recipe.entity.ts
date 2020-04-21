@@ -3,6 +3,8 @@ import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 't
 import { RecipeNutrition } from '../recipe-nutrition/recipe-nutrition.entity';
 import { RecipeIngredient } from '../recipe-ingredient/recipe-ingredient.entity';
 
+import { Difficulty } from 'ingredient/enums/dificulty.enum';
+
 @Entity()
 export class Recipe extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -16,6 +18,9 @@ export class Recipe extends BaseEntity {
 
   @Column()
   imgUrl: string;
+
+  @Column()
+  difficulty: Difficulty;
 
   @Column({ type: "text", array: true, nullable: true })
   instruction: string[] = [];

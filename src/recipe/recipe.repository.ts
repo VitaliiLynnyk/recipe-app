@@ -35,6 +35,7 @@ export class RecipeRepository extends Repository<Recipe> {
       imgUrl,
       description,
       instruction,
+      difficulty,
       recipeNutritionsArr,
       recipeIngredientsArr
     } = createRecipeDto;
@@ -43,6 +44,7 @@ export class RecipeRepository extends Repository<Recipe> {
     recipe.name = name;
     recipe.description = description;
     recipe.imgUrl = imgUrl;
+    recipe.difficulty = difficulty;
     recipe.instruction = recipe.instruction.length ? [ ...recipe.instruction, ...instruction ] : [ ...instruction ];
 
     const recipeIngredientsID = recipeIngredientsArr.map(item => item.id);
