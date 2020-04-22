@@ -33,6 +33,10 @@ export class CreateRecipeDto {
   instruction: string[];
 
   @IsNotEmpty()
+  @IsString()
+  prepTime: string;
+
+  @IsNotEmpty()
   @IsIn([
     Difficulty.EASY,
     Difficulty.MEDIUM,

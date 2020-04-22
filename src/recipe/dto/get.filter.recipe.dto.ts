@@ -10,6 +10,10 @@ export class GetFilterRecipeDto {
 
   @IsOptional()
   @IsNotEmpty()
+  prepTime: string;
+
+  @IsOptional()
+  @IsNotEmpty()
   @IsIn([
     Difficulty.EASY,
     Difficulty.MEDIUM,

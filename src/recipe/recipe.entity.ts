@@ -24,6 +24,9 @@ export class Recipe extends BaseEntity {
   difficulty: Difficulty;
 
   @Column()
+  prepTime: string;
+
+  @Column()
   category: RecipeCategory;
 
   @Column({ type: "text", array: true, nullable: true })
