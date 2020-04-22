@@ -1,7 +1,21 @@
-export enum Category {
+export enum IngredientCategory {
   FRUITS = 'FRUITS',
   GRAINS = 'GRAINS',
   DAIRY = 'DAIRY',
   PROTEIN = 'PROTEIN',
   VEGETABLES = 'VEGETABLES'
+}
+
+export enum RecipeCategory {
+  APPETIZERS = 'APPETIZERS',
+  BEVERAGES = 'BEVERAGES',
+  BREADS = 'BREADS',
+  BREAKFAST = 'BREAKFAST',
+  DESSERTS = 'DESSERTS',
+  MAINDISHES = 'MAIN DISHES',
+  SALADS = 'SALADS',
+  SANDWICHES = 'SANDWICHES',
+  SNACKS = 'SNACKS',
+  SOUPS = 'SOUPS',
+
 }

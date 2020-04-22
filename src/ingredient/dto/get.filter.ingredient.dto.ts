@@ -1,6 +1,6 @@
 import { IsOptional, IsNotEmpty } from 'class-validator';
 
-import { Category } from 'ingredient/enums/category.enum';
+import { IngredientCategory } from 'ingredient/enums/category.enum';
 
 export class GetFilterIngredientsDto {
   @IsOptional()
@@ -9,5 +9,5 @@ export class GetFilterIngredientsDto {
 
   @IsOptional()
   @IsNotEmpty()
-  category: Category;
+  category: IngredientCategory;
 }

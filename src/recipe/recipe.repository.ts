@@ -14,7 +14,7 @@ import { Nutrition } from 'nutrition/nutrition.entity';
 export class RecipeRepository extends Repository<Recipe> {
 
   async getRecipes(getFilterRecipeDto: GetFilterRecipeDto): Promise<Recipe[]> {
-    const { search, difficulty } = getFilterRecipeDto;
+    const { search, difficulty, category } = getFilterRecipeDto;
     const query = this.createQueryBuilder('recipe')
       .leftJoinAndSelect('recipe.recipeIngredients', 'recipeIngredient')
       .leftJoinAndSelect('recipe.recipeNutritions', 'recipeNutrition')
@@ -29,6 +29,10 @@ export class RecipeRepository extends Repository<Recipe> {
       query.andWhere('(recipe.difficulty = :difficulty)', { difficulty: `%${difficulty}%` });
     }
 
+    if (category) {
+      query.andWhere('(recipe.category = :category)', { category: `%${category}%` });
+    }
+
     const recipes = await query.getMany();
     return recipes;
   }
@@ -39,6 +43,7 @@ export class RecipeRepository extends Repository<Recipe> {
       imgUrl,
       description,
       instruction,
+      category,
       difficulty,
       recipeNutritionsArr,
       recipeIngredientsArr
@@ -49,6 +54,7 @@ export class RecipeRepository extends Repository<Recipe> {
     recipe.description = description;
     recipe.imgUrl = imgUrl;
     recipe.difficulty = difficulty;
+    recipe.category = category;
     recipe.instruction = recipe.instruction.length ? [ ...recipe.instruction, ...instruction ] : [ ...instruction ];
 
     const recipeIngredientsID = recipeIngredientsArr.map(item => item.id);

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsIn, IsOptional } from 'class-validator';
 
-import { Category } from '../enums/category.enum';
+import { IngredientCategory } from '../enums/category.enum';
 
 export class UpdateIngredientDto {
   @IsOptional()
@@ -14,11 +14,11 @@ export class UpdateIngredientDto {
   @IsOptional()
   @IsNotEmpty()
   @IsIn([
-    Category.DAIRY,
-    Category.FRUITS,
-    Category.GRAINS,
-    Category.PROTEIN,
-    Category.VEGETABLES
+    IngredientCategory.DAIRY,
+    IngredientCategory.FRUITS,
+    IngredientCategory.GRAINS,
+    IngredientCategory.PROTEIN,
+    IngredientCategory.VEGETABLES
   ])
-  category: Category;
+  category: IngredientCategory;
 }

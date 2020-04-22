@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, ValidateNested, IsString, IsArray, IsIn } from 'class-validator';
 
 import { Difficulty } from 'ingredient/enums/dificulty.enum';
+import { RecipeCategory } from 'ingredient/enums/category.enum';
 
 export class CreateRecipeNestedComponentDto {
   @IsNotEmpty()
@@ -38,6 +39,21 @@ export class CreateRecipeDto {
     Difficulty.HARD
   ])
   difficulty: Difficulty;
+
+  @IsNotEmpty()
+  @IsIn([
+    RecipeCategory.APPETIZERS,
+    RecipeCategory.BEVERAGES,
+    RecipeCategory.BREADS,
+    RecipeCategory.BREAKFAST,
+    RecipeCategory.DESSERTS,
+    RecipeCategory.MAINDISHES,
+    RecipeCategory.SALADS,
+    RecipeCategory.SANDWICHES,
+    RecipeCategory.SNACKS,
+    RecipeCategory.SOUPS,
+  ])
+  category: RecipeCategory;
 
   @IsArray()
   @ValidateNested({ each: true })
