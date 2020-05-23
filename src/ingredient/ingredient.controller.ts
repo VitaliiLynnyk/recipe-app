@@ -9,7 +9,7 @@ import { GetFilterIngredientsDto } from './dto/get.filter.ingredient.dto';
 
 @Controller('ingredient')
 export class IngredientController {
-  constructor(private ingredientService: IngredientService) { }
+  constructor(private ingredientService: IngredientService) {}
 
   @Get()
   getIngredients(@Query(ValidationPipe) getFilterIngredientsDto: GetFilterIngredientsDto): Promise<Ingredient[]> {
