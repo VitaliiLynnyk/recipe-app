@@ -17,5 +17,4 @@ export enum RecipeCategory {
   SANDWICHES = 'SANDWICHES',
   SNACKS = 'SNACKS',
   SOUPS = 'SOUPS',
-
 }
